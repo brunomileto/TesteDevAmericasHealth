@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>USER_HOMEPAGE</h2>
+    <p>Welcome {% request.user.first_name %}</p>
+    {% if request.user.is_authenticated %}
+        <ul>
+            {% for item in data %}
+            <li>
+                <h1>{{ item.name }}</h1>
+             </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock %}

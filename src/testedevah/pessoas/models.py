@@ -14,19 +14,17 @@ class BaseModel(models.Model):
 
 class Pessoa(BaseModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    cpf = models.CharField(max_length=120, blank=False, null=True, unique=True, default=None)
+    cpf = models.CharField(max_length=120, blank=False, null=True, default=None)
     data_nascimento = models.DateField(blank=False, null=True, default=None)
-    cidade = models.CharField(max_length=30, blank=True)
-    estado = models.CharField(max_length=2, blank=True, )
+    cidade = models.CharField(max_length=30, blank=False, null=True, default=None)
+    estado = models.CharField(max_length=2, blank=False, null=True, default=None)
+    email = models.CharField(max_length=30, blank=False, null=True, default=None)
 
 
 @receiver(post_save, sender=User)
-def create_profile(sender, instance, created, **kwargs):
+def update_user_profile(sender, instance, created, **kwargs):
     if created:
         Pessoa.objects.create(user=instance)
+    instance.pessoa.save()
 
-
-@receiver(post_save, sender=User)
-def save_profile(sender, instance, **kwargs):
-    instance.profile.save()
 

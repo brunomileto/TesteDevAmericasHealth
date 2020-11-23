@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Sign Up</h2>
+
+    {% if msg != none %}
+        <div class="alert alert-danger" role="alert">
+            <strong>Erro(s)!</strong>
+            <ul>
+                {% for item in msg %}
+                <li>
+                    {{ item }}
+                </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit"> Sign Up</button>
+    </form>
+    <p></p>
+
+{% endblock %}
